@@ -8,11 +8,13 @@ const EXCHANGE_RATES = gql`
     rates(currency: "USD") {
       currency
       rate
+      name
     }
   }
 `
 
 interface ExchangeRate {
+  name: string
   currency: string
   rate: string
 }
@@ -53,7 +55,7 @@ const Home: NextPage = () => {
       {data?.map(exchangeRate => {
         return (
           <p key={exchangeRate.currency}>
-            {exchangeRate.currency}: {exchangeRate.rate}
+            {exchangeRate.currency}（{exchangeRate.name}）: {exchangeRate.rate}
           </p>
         )
       })}
