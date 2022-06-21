@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import apollo from '../lib/apollo'
 
 const EXCHANGE_RATES = gql`
-  query GetExchangeRates {
+  subscription SubscribeExchangeRates {
     rates {
       id
       name
@@ -21,24 +21,19 @@ interface ExchangeRate {
   rate: string
 }
 
-async function fetchData() {
-  const result = await apollo.query<{ rates: ExchangeRate[] }>({
-    query: EXCHANGE_RATES,
-  })
-  return result.data
-}
-
 const Home: NextPage = () => {
-  const [loading, setLoading] = useState<boolean>(true)
   const [data, setData] = useState<ExchangeRate[]>([])
 
   useEffect(() => {
-    fetchData().then(data => {
-      setData(data.rates)
-      setLoading(false)
-    })
+    apollo
+      .subscribe<{ rates: ExchangeRate[] }>({
+        query: EXCHANGE_RATES,
+      })
+      .subscribe(result => {
+        const rates = result.data?.rates ?? []
+        setData(rates)
+      })
   }, [])
-  if (loading) return <p>Loading...</p>
   return (
     <Box
       display="flex"
