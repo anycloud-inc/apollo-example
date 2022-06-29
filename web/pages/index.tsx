@@ -5,17 +5,16 @@ import { Box } from '@mui/material'
 import type { NextPage } from 'next'
 import { useEffect, useState } from 'react'
 import { getSdk } from '../src/generated/graphql'
-import { gql } from '@apollo/client'
 
-const EXCHANGE_RATES = gql`
-  query GetExchangeRates {
-    rates(currency: "USD") {
-      currency
-      rate
-      name
-    }
-  }
-`
+// const EXCHANGE_RATES = gql`
+//   query GetExchangeRates {
+//     rates(currency: "USD") {
+//       currency
+//       rate
+//       name
+//     }
+//   }
+// `
 
 interface ExchangeRate {
   name?: string | null
