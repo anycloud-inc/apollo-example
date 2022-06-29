@@ -1,0 +1,2 @@
+schema: 'https://48p1r2roz4.sse.codesandbox.io'
+documents: 'src/**/*.{graphql,js,ts,jsx,tsx}'
